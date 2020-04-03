@@ -12,35 +12,36 @@ import Text from '../../config/AppText';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GoogleIcon, FacebookIcon } from '../Assets';
 
-export class Register extends React.Component {
+export class Name extends React.Component {
     state = {
         isProccessing: false,
         validationErr: false,
-        phone: undefined,
+        firstName: undefined,
+        lastName: undefined,
     }
     render() {
+        const { firstName, lastName, } = this.state;
         return (
             <ScrollView contentContainerStyle={styles.container}>
-                <View style={styles.welcome}>
-                    <Text style={styles.h1}>What's your phone number</Text>
-                    <Text style={styles.subTxt}>Help us with your phone number</Text>
-                </View>
+                <View style={{ flex: 1 }}>
+                    <View style={styles.welcome}>
+                        <Text style={styles.h1}>What's your name</Text>
+                        <Text style={styles.subTxt}>Let's get to know you</Text>
+                    </View>
 
-                {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
-                {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>}
+                    {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
+                    {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>}
 
-                <View style={styles.mainContainer}>
                     <View style={styles.inputContainer}>
                         <View>
-                            <Text style={styles.inputHolder}>Phone Number</Text>
+                            <Text style={styles.inputHolder}>First name</Text>
                             <Item
                                 style={styles.inputTxt}
                                 // error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
                                 rounded>
                                 <Input
-                                    onChangeText={e => this.setState({ phone: e })}
-                                    autoCapitalize={'none'}
-                                    placeholder={'+234 123 456 7890'}
+                                    onChangeText={e => this.setState({ firstName: e })}
+                                    placeholder={'John'}
                                     placeholderTextColor={colors.btnDisabled}
                                     style={styles.input}
                                 />
@@ -48,26 +49,19 @@ export class Register extends React.Component {
                         </View>
                     </View>
 
-                    <View style={styles.container2}>
-                        <View style={styles.border1}></View>
-                        <View style={styles.or}><Text>OR</Text></View>
-                        <View style={styles.border2}></View>
-                    </View>
-
-
-                    <View style={styles.socialLogin}>
-                        <Button
-                            style={styles.googleBtn}
-                            BtnTextStyles={styles.btnText}
-                            shadow
-                            Icon={<GoogleIcon />}
-                        />
-                        <Button
-                            style={styles.facebookBtn}
-                            BtnTextStyles={styles.btnText}
-                            shadow
-                            Icon={<FacebookIcon />}
-                        />
+                    <View style={{ marginVertical: 10 }}>
+                        <Text style={styles.inputHolder}>Last name</Text>
+                        <Item
+                            style={styles.inputTxt}
+                            error={(this.email === '') && this.state.validationErr}
+                            rounded>
+                            <Input
+                                onChangeText={e => this.setState({ lastName: e })}
+                                placeholder={'Doe'}
+                                placeholderTextColor={colors.btnDisabled}
+                                style={styles.input}
+                            />
+                        </Item>
                     </View>
                 </View>
 
@@ -76,8 +70,8 @@ export class Register extends React.Component {
                         <View style={styles.progress}></View>
                     </View>
                     <Button
-                        onPress={() => this.props.navigation.navigate('Verify')}
-                        disabled={!this.state.phone ? true : false}
+                        onPress={() => this.props.navigation.navigate('Password')}
+                        disabled={!firstName || !lastName ? true : false}
                         style={styles.btn}
                         BtnTextStyles={styles.btnText}
                         BtnText={'Next'}
@@ -93,11 +87,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // justifyContent: 'center',
         padding: 30,
-    },
-    mainContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between'
+        marginVertical: 30,
     },
     inputTxt: {
         backgroundColor: "#F7F7F7",
@@ -107,7 +97,7 @@ const styles = StyleSheet.create({
     },
     welcome: {
         alignItems: 'center',
-        marginTop: 100,
+        marginTop: 50,
     },
     h1: {
         fontSize: 20,
@@ -135,22 +125,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 30,
     },
-    border1: {
-        borderWidth: .7,
-        height: 1,
-        width: '45%',
-        flexDirection: 'row',
-        borderColor: '#E4E4E4',
-        alignSelf: 'center'
-    },
-    border2: {
-        borderWidth: .7,
-        height: 1,
-        width: '45%',
-        flexDirection: 'row',
-        borderColor: '#E4E4E4',
-        alignSelf: 'center'
-    },
     btnContainer: {
         flex: 1,
         justifyContent: 'flex-end',
@@ -164,31 +138,6 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontWeight: '500',
     },
-    socialLogin: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 50,
-    },
-    googleBtn: {
-        backgroundColor: colors.white,
-        width: '45%',
-    },
-    facebookBtn: {
-        backgroundColor: colors.facebook,
-        width: '45%'
-    },
-    shadow: {
-        borderWidth: 1,
-        borderRadius: 4,
-        borderBottomWidth: 0,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        elevation: 1,
-        borderLeftWidth: 12,
-        borderLeftColor: "#000000",
-    },
     progressContainer: {
         height: 3,
         borderColor: '#E4E4E4',
@@ -199,9 +148,9 @@ const styles = StyleSheet.create({
     },
     progress: {
         height: 2,
-        width: '30%',
+        width: '60%',
         backgroundColor: colors.success,
     },
 })
 
-export default Register;
+export default Name;

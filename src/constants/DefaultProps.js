@@ -16,14 +16,20 @@ export const colors = {
     bg: '#EBEBEB',
     gray: '#707070',
     default_text: '#9703FC',
-    btnDisabled: "#828282",
+    btnDisabled: "#8FB9D1",
+    facebook: '#3C5A9A',
 }
 //bg-F5FCFF
 
 export const fonts = {
-    // default: 'NoirPro-Regular',
-    // medium: 'NoirPro-Medium',
-    // bold: 'NoirPro-Bold',
+    nunitoRegular: 'NunitoSans-Regular',
+    nunitoBold: 'NunitoSans-Bold',
+    nunitoBlack: 'NunitoSans-Black',
+    nunitoRegular: 'NunitoSans-Regular',
+    nunitoItalic: 'NunitoSans-Italic',
+    merriweatherBold: 'MerriweatherSans-Bold',
+    merriweatherItalic: 'MerriweatherSans-Italic',
+    merriweatherRegular: 'MerriweatherSans-Regular',
 }
 
 export const toastType = {

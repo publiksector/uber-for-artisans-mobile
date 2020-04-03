@@ -1,13 +1,23 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, } from 'react-native';
 import { Button, Spinner } from 'native-base';
 import Text from '../config/AppText';
 import { colors } from '../constants/DefaultProps';
 
-const Component = ({ BtnType, BtnColor, BtnText, onPress, BtnTextStyles, style, loading, }) => {
+const Component = ({
+    Icon,
+    size = "lg",
+    BtnText,
+    onPress,
+    BtnTextStyles,
+    style,
+    loading,
+    shadow,
+    disabled,
+}) => {
     const mainStyles = [{
-        width: BtnType === 'small' ? 103 : "100%",
-        height: BtnType === 'small' ? 36 : 42,
+        width: size === 'sm' ? 103 : "100%",
+        height: size === 'sm' ? 36 : 48,
         backgroundColor: colors.default,
         borderRadius: 30,
         justifyContent: "center",
@@ -22,11 +32,12 @@ const Component = ({ BtnType, BtnColor, BtnText, onPress, BtnTextStyles, style, 
     }
 
     return <Button
-        disabled={loading ? true : false}
+        disabled={loading || disabled ? true : false}
         activeOpacity={0.7}
-        style={mainStyles}
+        style={[mainStyles, shadow ? styles.shadow : undefined, disabled ? { backgroundColor: colors.btnDisabled } : null]}
         onPress={onPress}>
 
+        {Icon ? <View style={{ alignSelf: 'center', }}>{Icon}</View> : null}
         {BtnText && !loading ? <Text style={styles.ButtonText, BtnTextStyles}>{BtnText}</Text> : null}
         {loading ? <Spinner color={colors.info} size="large" /> : null}
     </Button>
@@ -41,6 +52,13 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#FFFFFF',
         textAlign: 'center',
+    },
+    shadow: {
+        shadowColor: '#000',
+        shadowOffset: { width: 1, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 1,
     },
 });
 

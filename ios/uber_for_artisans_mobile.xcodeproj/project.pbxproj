@@ -19,6 +19,13 @@
 		2DCD954D1E0B4F2C00145EB5 /* uber_for_artisans_mobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* uber_for_artisans_mobileTests.m */; };
 		324B78A2E14D06F3C0320BD2 /* libPods-uber_for_artisans_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8636E163424ECC552A7309B1 /* libPods-uber_for_artisans_mobileTests.a */; };
 		4C92B4BEB06CEA97FC25313C /* libPods-uber_for_artisans_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEDFCDAA0DB46CAB9F604D7 /* libPods-uber_for_artisans_mobile.a */; };
+		906B6340243668AC00F2B415 /* MerriweatherSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906B6339243668AC00F2B415 /* MerriweatherSans-Bold.ttf */; };
+		906B6341243668AC00F2B415 /* MerriweatherSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906B633A243668AC00F2B415 /* MerriweatherSans-Italic.ttf */; };
+		906B6342243668AC00F2B415 /* MerriweatherSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906B633B243668AC00F2B415 /* MerriweatherSans-Regular.ttf */; };
+		906B6343243668AC00F2B415 /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906B633C243668AC00F2B415 /* NunitoSans-Regular.ttf */; };
+		906B6344243668AC00F2B415 /* NunitoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906B633D243668AC00F2B415 /* NunitoSans-Italic.ttf */; };
+		906B6345243668AC00F2B415 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906B633E243668AC00F2B415 /* NunitoSans-Bold.ttf */; };
+		906B6346243668AC00F2B415 /* NunitoSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906B633F243668AC00F2B415 /* NunitoSans-Black.ttf */; };
 		A209060539EC961384FC9F58 /* libPods-uber_for_artisans_mobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1D26F1D192965F7F95BF35 /* libPods-uber_for_artisans_mobile-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +67,13 @@
 		4988FF3DE8672E28491E7444 /* Pods-uber_for_artisans_mobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber_for_artisans_mobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-uber_for_artisans_mobile-tvOS/Pods-uber_for_artisans_mobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5B1D26F1D192965F7F95BF35 /* libPods-uber_for_artisans_mobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-uber_for_artisans_mobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8636E163424ECC552A7309B1 /* libPods-uber_for_artisans_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-uber_for_artisans_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		906B6339243668AC00F2B415 /* MerriweatherSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MerriweatherSans-Bold.ttf"; sourceTree = "<group>"; };
+		906B633A243668AC00F2B415 /* MerriweatherSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MerriweatherSans-Italic.ttf"; sourceTree = "<group>"; };
+		906B633B243668AC00F2B415 /* MerriweatherSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MerriweatherSans-Regular.ttf"; sourceTree = "<group>"; };
+		906B633C243668AC00F2B415 /* NunitoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Regular.ttf"; sourceTree = "<group>"; };
+		906B633D243668AC00F2B415 /* NunitoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Italic.ttf"; sourceTree = "<group>"; };
+		906B633E243668AC00F2B415 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
+		906B633F243668AC00F2B415 /* NunitoSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Black.ttf"; sourceTree = "<group>"; };
 		92B8FE457100D2483C053785 /* Pods-uber_for_artisans_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber_for_artisans_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-uber_for_artisans_mobileTests/Pods-uber_for_artisans_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		AB89D462DFB4D639277D435A /* Pods-uber_for_artisans_mobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber_for_artisans_mobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-uber_for_artisans_mobile-tvOSTests/Pods-uber_for_artisans_mobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B64F9DF86F2A14F01AC7A7A7 /* Pods-uber_for_artisans_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber_for_artisans_mobile.release.xcconfig"; path = "Target Support Files/Pods-uber_for_artisans_mobile/Pods-uber_for_artisans_mobile.release.xcconfig"; sourceTree = "<group>"; };
@@ -159,6 +173,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				906B6338243668AC00F2B415 /* fonts */,
 				13B07FAE1A68108700A75B9A /* uber_for_artisans_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* uber_for_artisans_mobileTests */,
@@ -182,6 +197,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		906B6338243668AC00F2B415 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				906B6339243668AC00F2B415 /* MerriweatherSans-Bold.ttf */,
+				906B633A243668AC00F2B415 /* MerriweatherSans-Italic.ttf */,
+				906B633B243668AC00F2B415 /* MerriweatherSans-Regular.ttf */,
+				906B633C243668AC00F2B415 /* NunitoSans-Regular.ttf */,
+				906B633D243668AC00F2B415 /* NunitoSans-Italic.ttf */,
+				906B633E243668AC00F2B415 /* NunitoSans-Bold.ttf */,
+				906B633F243668AC00F2B415 /* NunitoSans-Black.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		F74F81742999EDFA8F76B9DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,7 +223,6 @@
 				CDD0727D714BFEA18E684190 /* Pods-uber_for_artisans_mobileTests.debug.xcconfig */,
 				92B8FE457100D2483C053785 /* Pods-uber_for_artisans_mobileTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -309,6 +337,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -337,8 +366,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				906B6346243668AC00F2B415 /* NunitoSans-Black.ttf in Resources */,
+				906B6344243668AC00F2B415 /* NunitoSans-Italic.ttf in Resources */,
+				906B6340243668AC00F2B415 /* MerriweatherSans-Bold.ttf in Resources */,
+				906B6343243668AC00F2B415 /* NunitoSans-Regular.ttf in Resources */,
+				906B6342243668AC00F2B415 /* MerriweatherSans-Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				906B6341243668AC00F2B415 /* MerriweatherSans-Italic.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				906B6345243668AC00F2B415 /* NunitoSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +439,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-uber_for_artisans_mobile/Pods-uber_for_artisans_mobile-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -419,9 +456,11 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -438,6 +477,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

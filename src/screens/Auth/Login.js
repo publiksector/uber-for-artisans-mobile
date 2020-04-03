@@ -12,35 +12,51 @@ import Text from '../../config/AppText';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GoogleIcon, FacebookIcon } from '../Assets';
 
-export class Register extends React.Component {
+export class Login extends React.Component {
     state = {
         isProccessing: false,
         validationErr: false,
-        phone: undefined,
     }
     render() {
         return (
             <ScrollView contentContainerStyle={styles.container}>
-                <View style={styles.welcome}>
-                    <Text style={styles.h1}>What's your phone number</Text>
-                    <Text style={styles.subTxt}>Help us with your phone number</Text>
-                </View>
+                <SafeAreaView>
+                    <View style={styles.welcome}>
+                        <Text style={styles.h1}>Welcome back!</Text>
+                        <Text style={styles.subTxt}>Log in to get book any artisan at an affortable and secure way</Text>
+                    </View>
 
-                {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
-                {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>}
+                    {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
+                    {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>}
 
-                <View style={styles.mainContainer}>
                     <View style={styles.inputContainer}>
                         <View>
-                            <Text style={styles.inputHolder}>Phone Number</Text>
+                            <Text style={styles.inputHolder}>Email</Text>
                             <Item
                                 style={styles.inputTxt}
-                                // error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
+                                error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
                                 rounded>
                                 <Input
-                                    onChangeText={e => this.setState({ phone: e })}
+                                    onChangeText={e => this.firstname = e}
                                     autoCapitalize={'none'}
-                                    placeholder={'+234 123 456 7890'}
+                                    placeholder={'Your email'}
+                                    placeholderTextColor={colors.btnDisabled}
+                                    style={styles.input}
+                                />
+                            </Item>
+                        </View>
+
+                        <View style={{ marginVertical: 10 }}>
+                            <Text style={styles.inputHolder}>Password</Text>
+                            <Item
+                                style={styles.inputTxt}
+                                error={(this.email === '') && this.state.validationErr}
+                                rounded>
+                                <Input
+                                    onChangeText={e => this.email = e}
+                                    autoCapitalize={'none'}
+                                    placeholder={'********'}
+                                    secureTextEntry={true}
                                     placeholderTextColor={colors.btnDisabled}
                                     style={styles.input}
                                 />
@@ -69,20 +85,15 @@ export class Register extends React.Component {
                             Icon={<FacebookIcon />}
                         />
                     </View>
-                </View>
 
-                <View style={styles.btnContainer}>
-                    <View style={styles.progressContainer}>
-                        <View style={styles.progress}></View>
+                    <View style={styles.btnContainer}>
+                        <Button
+                            style={styles.btn}
+                            BtnTextStyles={styles.btnText}
+                            BtnText={'Log In'}
+                        />
                     </View>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('Verify')}
-                        disabled={!this.state.phone ? true : false}
-                        style={styles.btn}
-                        BtnTextStyles={styles.btnText}
-                        BtnText={'Next'}
-                    />
-                </View>
+                </SafeAreaView>
             </ScrollView>
         )
     }
@@ -94,11 +105,6 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         padding: 30,
     },
-    mainContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between'
-    },
     inputTxt: {
         backgroundColor: "#F7F7F7",
         height: 50,
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
     },
     welcome: {
         alignItems: 'center',
-        marginTop: 100,
+        marginTop: 50,
     },
     h1: {
         fontSize: 20,
@@ -152,8 +158,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     btnContainer: {
-        flex: 1,
-        justifyContent: 'flex-end',
         marginTop: 60,
         width: '100%',
     },
@@ -189,19 +193,6 @@ const styles = StyleSheet.create({
         borderLeftWidth: 12,
         borderLeftColor: "#000000",
     },
-    progressContainer: {
-        height: 3,
-        borderColor: '#E4E4E4',
-        backgroundColor: '#E4E4E4',
-        borderWidth: .9,
-        borderRadius: 2,
-        width: '100%',
-    },
-    progress: {
-        height: 2,
-        width: '30%',
-        backgroundColor: colors.success,
-    },
 })
 
-export default Register;
+export default Login;
