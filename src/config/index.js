@@ -3,7 +3,7 @@
 const config = {
     api: {
         // host: env.BASE_URL,
-        host: 'https://bikelane.herokuapp.com',
+        host: 'https://uberforartisan.herokuapp.com',
         timeout: 20000
     },
     paystack: "pk_test_0ea0b432bc09a6a366bb905cba0a396670b62413",

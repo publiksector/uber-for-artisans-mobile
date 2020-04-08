@@ -4,26 +4,108 @@ import {
     ImageBackground,
     StyleSheet,
     ScrollView,
+    TouchableOpacity,
+    Image,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../actions';
 import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import { Item, Input, Icon } from 'native-base';
 import Text from '../../config/AppText';
-import { getPhoneNumber } from 'react-native-device-info';
+import DeviceInfo, { getPhoneNumber, } from 'react-native-device-info';
+import CountryPicker, { getAllCountries } from 'react-native-country-picker-modal';
 
-export class Register extends React.Component {
-    state = {
-        isProccessing: false,
-        validationErr: false,
-        phone: undefined,
+const COUNTRY = ['NG'];
+export class Auth extends React.Component {
+    constructor(props) {
+        super(props);
+        let userLocaleCountryCode = 'NG';
+        let cca2 = userLocaleCountryCode;
+        let callingCode = null;
+        getAllCountries()
+            .then((country) => country.filter(e => COUNTRY.includes(e.cca2)))
+            .then((country) => {
+                if (!cca2 || !country) {
+                    this.setState({ callingCode: '234', cca2: 'NG' })
+                } else {
+                    this.setState({ callingCode: country[0].callingCode[0] })
+                }
+            });
+
+        this.state = {
+            cca2,
+            callingCode,
+            isProccessing: false,
+            validationErr: false,
+            phone: undefined,
+            visible: false,
+            countryCode: 'NG',
+            withFilter: true,
+            withFlag: true,
+            withCountryNameButton: true,
+            withAlphaFilter: true,
+            withCallingCode: true,
+            withEmoji: true,
+        };
     }
-    componentDidMount(){
+    componentDidMount() {
         this.getPhone();
     }
+    UNSAFE_componentWillReceiveProps(prevProps) {
+        const { countryCode, } = this.state;
+        if (prevProps.validate && this.props.validate !== prevProps.validate) {
+            this.props.generateOTP(prevProps.otpCredentials);
+        }
+        if (prevProps.verified && this.props.verified !== prevProps.verified) {
+            this.props.navigation.navigate('Name');
+            this.setState({ isProcessing: false, });
+        }
+        if (prevProps.token && this.props.token !== prevProps.token) {
+            if (prevProps.verified == false) {
+                this.props.navigation.navigate('Verify');
+                this.setState({ isProcessing: false, });
+            }
+        }
+        if (prevProps.error && this.props.error !== prevProps.error) {
+            this.setState({ isProcessing: false, error: prevProps.error, });
+        }
+    }
+
+    validateMobile = () => {
+        const { countryCode, } = this.state;
+        this.setState({ error: undefined, isProccessing: true, });
+        if (!this.props.mobile || this.props.mobile == '') {
+            return alert('please enter your phone number');
+        }
+        this.setState({ isProcessing: true, });
+        this.props.validateMobile(countryCode);
+    }
     getPhone = () => {
-        getPhoneNumber().then(e => alert(e))
+        getPhoneNumber().then(e => console.log(e))
+    }
+    openModal = () => {
+        this.setState({ visible: true });
     }
     render() {
+        const onSelect = value => {
+            this.props.countryCode(value.cca2);
+            this.setState({ cca2: value.cca2, callingCode: value.callingCode, countryCode: value.cca2, visible: true, });
+        }
+        const onClose = _ => this.setState({ visible: false, });
+        const {
+            visible,
+            callingCode,
+            countryCode,
+            withFilter,
+            withFlag,
+            withCountryNameButton,
+            withAlphaFilter,
+            withCallingCode,
+            withEmoji,
+        } = this.state;
+        const { mobile } = this.props;
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.welcome}>
@@ -36,18 +118,47 @@ export class Register extends React.Component {
 
                 <View style={styles.mainContainer}>
                     <View style={styles.inputContainer}>
+                        {/* <CountryPicker
+                            containerButtonStyle={styles.countryModal}
+                            withEmoji
+                            withCallingCode
+                            withFilter
+                            visible={visible}
+                            onClose={() => this.setState({ visible: false, })}
+                            onSelect={value => {
+                                this.setState({ cca2: value.cca2, callingCode: value.callingCode });
+                            }}
+                        /> */}
+
                         <View>
                             <Text style={styles.inputHolder}>Phone Number</Text>
                             <Item
                                 style={styles.inputTxt}
                                 // error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
                                 rounded>
-                                <View style={styles.inputAddon}>
-                                    <Text style={styles.addonTxt}>+234</Text>
+                                <TouchableOpacity
+                                    style={styles.inputAddon}
+                                    onPress={this.openModal}
+                                >
+                                    <CountryPicker
+                                        {...{
+                                            countryCode,
+                                            withFilter,
+                                            withFlag,
+                                            // withCountryNameButton,
+                                            withAlphaFilter,
+                                            withCallingCode,
+                                            withEmoji,
+                                            onSelect,
+                                            onClose,
+                                        }}
+                                        visible={visible}
+                                    />
+                                    <Text style={styles.addonTxt}>{callingCode}</Text>
                                     <Icon style={styles.addonTxt} name="ios-arrow-down" />
-                                </View>
+                                </TouchableOpacity>
                                 <Input
-                                    onChangeText={e => this.setState({ phone: e })}
+                                    onChangeText={mobile => this.props.inputNumber(mobile)}
                                     autoCapitalize={'none'}
                                     placeholder={'123 456 7890'}
                                     placeholderTextColor={colors.btnDisabled}
@@ -85,9 +196,10 @@ export class Register extends React.Component {
                         <View style={styles.progress}></View>
                     </View>
                     <Button
-                        onPress={() => this.props.navigation.navigate('Verify')}
-                        disabled={!this.state.phone ? true : false}
+                        onPress={this.validateMobile}
+                        disabled={!mobile ? true : false}
                         style={styles.btn}
+                        loading={this.state.isProccessing}
                         BtnTextStyles={styles.btnText}
                         BtnText={'Send my code here'}
                     />
@@ -213,7 +325,7 @@ const styles = StyleSheet.create({
     },
     inputAddon: {
         height: '100%',
-        width: 80,
+        width: 95,
         backgroundColor: '#20494C',
         borderTopLeftRadius: 50 / 2,
         borderBottomLeftRadius: 50 / 2,
@@ -225,7 +337,22 @@ const styles = StyleSheet.create({
     addonTxt: {
         color: colors.white,
         fontSize: 12,
+        fontFamily: fonts.nunitoBold,
+    },
+    countryModal: {
+        backgroundColor: 'transparent',
     },
 })
 
-export default Register;
+const mapStateToProps = state => ({
+    validate: state.register.validate,
+    verified: state.register.verified,
+    mobile: state.register.mobile,
+    token: state.register.token,
+    otpCredentials: state.register.otpCredentials,
+    error: state.register.error,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

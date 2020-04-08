@@ -3,27 +3,28 @@ import { View, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from '../screens/Splash';
-import OnboardScreen from '../screens/GetStarted';
-import RegisterScreen from '../screens/Auth/Register';
+import GetStartedScreen from '../screens/GetStarted';
+import PhoneScreen from '../screens/Auth';
 import LoginScreen from '../screens/Auth/Login';
 import VerifyScreen from '../screens/Auth/Verify';
 import NameScreen from '../screens/Auth/Name';
 import PasswordScreen from '../screens/Auth/Password';
 import AvatarScreen from '../screens/Auth/Avatar';
+import OnBoardScreen1 from '../screens/Onboard';
 
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Onboard">
+      <Stack.Navigator initialRouteName="GetStarted">
         <Stack.Screen
-          name="Onboard"
-          component={OnboardScreen}
+          name="GetStarted"
+          component={GetStartedScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
+          name="Phone"
+          component={PhoneScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -49,6 +50,11 @@ const App = () => {
         <Stack.Screen
           name="Avatar"
           component={AvatarScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OnBoard1"
+          component={OnBoardScreen1}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

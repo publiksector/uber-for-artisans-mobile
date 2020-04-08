@@ -4,9 +4,11 @@ import {
     ImageBackground,
     StyleSheet,
 } from 'react-native';
-import { colors } from '../../constants/DefaultProps';
+import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import Text from '../../config/AppText';
+import { GoogleIcon, FacebookIcon } from '../Assets';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export class Onboard extends React.Component {
     render() {
@@ -18,24 +20,45 @@ export class Onboard extends React.Component {
                 >
                     <View style={styles.textContainer}>
                         <Text style={styles.h1}>Artisans</Text>
-                        <Text style={styles.h2}>Connecting customers to artisans of their choice</Text>
+                        <Text style={styles.h2}>Connecting customers to artisans at their convinience</Text>
                     </View>
 
 
                     <View style={styles.btnContainer}>
-                        <Button
+                        {/* <Button
                             onPress={() => this.props.navigation.navigate('Login')}
                             style={styles.loginBtn}
                             BtnTextStyles={styles.loginTxt}
                             BtnText={'Sign in'}
+                        /> */}
+                        <Button
+                            style={styles.facebookBtn}
+                            BtnTextStyles={styles.btnText}
+                            shadow
+                            Icon={<FacebookIcon />}
                         />
                         <Button
-                            onPress={() => this.props.navigation.navigate('Register')}
+                            style={styles.googleBtn}
+                            BtnTextStyles={styles.btnText}
+                            shadow
+                            Icon={<GoogleIcon />}
+                        />
+                        <Button
+                            onPress={() => this.props.navigation.navigate('Phone')}
                             style={styles.btn}
                             BtnTextStyles={styles.btnText}
-                            BtnText={'Get Started'}
+                            BtnText={'Sign up'}
                         />
+                        <View style={styles.loginTxtContainer}>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('Login')}
+                                activeOpacity={0.8}
+                            >
+                                <Text style={styles.loginTxt}>Already have an account? Sign in</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
+
                 </ImageBackground>
 
             </View>
@@ -49,20 +72,21 @@ const styles = StyleSheet.create({
     },
     bg: {
         flex: 1,
-        opacity: 0.8,
+        // opacity: 0.8,
         backgroundColor: colors.default,
     },
     h1: {
         color: colors.white,
         fontSize: 32,
-        fontWeight: '600'
+        fontWeight: '600',
+        fontFamily: fonts.nunitoBold,
     },
     h2: {
         color: colors.white,
         fontSize: 16,
-        fontWeight: '300',
+        // fontWeight: '300',
         marginTop: 20,
-        paddingHorizontal: 80,
+        paddingHorizontal: 60,
         textAlign: 'center'
     },
     textContainer: {
@@ -87,16 +111,28 @@ const styles = StyleSheet.create({
         borderColor: colors.white,
         borderWidth: 2,
     },
+    loginTxtContainer: {
+        marginTop: 20,
+        alignItems: 'center',
+    },
     loginTxt: {
         color: colors.white,
-        fontWeight: '500',
     },
     btnContainer: {
         width: '100%',
         padding: 30,
         position: 'absolute',
         bottom: '5%',
-    }
+    },
+    googleBtn: {
+        backgroundColor: colors.white,
+        width: '100%',
+        marginTop: 20,
+    },
+    facebookBtn: {
+        backgroundColor: colors.facebook,
+        width: '100%',
+    },
 })
 
 export default Onboard;

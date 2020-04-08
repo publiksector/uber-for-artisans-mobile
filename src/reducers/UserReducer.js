@@ -45,12 +45,11 @@ export default function userReducer(state = initialState, action) {
             }
             if (action.payload.response.data && action.payload.response.data.token) {
                 AsyncStorage.setItem(constants.TOKEN, action.payload.response.data.token);
-                // store.getState().socket.emit('Authorized', action.payload.response.data.user);
                 return {
                     ...state,
                     authenticated: true,
                     error: undefined,
-                    current: action.payload.response.data.user
+                    current: action.payload.response.data.activeUser
                 };
             }
         case constants.AUTH_USER_FAILURE:

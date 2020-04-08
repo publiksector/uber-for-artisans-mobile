@@ -1,5 +1,5 @@
-import { NavigationActions, StackActions } from 'react-navigation';
-import { DrawerActions } from 'react-navigation-drawer';
+import { DrawerActions, CommonActions, } from '@react-navigation/native';
+import { NavigationActions } from '@react-navigation/compat';
 
 let _navigator;
 
@@ -9,12 +9,12 @@ function setTopLevelNavigator(navigatorRef) {
 
 function navigate(routeName, params) {
     _navigator.dispatch(
-        StackActions.reset({
+        CommonActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({
-                routeName,
+            routes: [{
+                name: routeName,
                 params,
-            })],
+            }],
         })
     );
 }
@@ -31,9 +31,11 @@ function goBack() {
     );
 }
 
-const resetAction = (routeName) => StackActions.reset({
+const resetAction = (routeName) => CommonActions.reset({
     index: 0,
-    actions: [NavigationActions.navigate({ routeName })],
+    routes: [{
+        name: routeName,
+    }],
 });
 // StackActions.reset({
 //     index: 0,

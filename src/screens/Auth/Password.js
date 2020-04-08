@@ -5,6 +5,9 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../actions';
 import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import { Item, Input } from 'native-base';
@@ -13,12 +16,29 @@ import Text from '../../config/AppText';
 export class Password extends React.Component {
     state = {
         isProccessing: false,
-        validationErr: false,
-        password: undefined,
+        validationErr: undefined,
+        validationPw: undefined,
         rePassword: undefined,
     }
+    handleClick = () => {
+        this.setState({ validationErr: undefined, });
+        const { credentials: { password, } } = this.props;
+        const { rePassword, validationPw, } = this.state;
+        if (!validationPw) {
+            this.setState({ validationErr: 'Password field cannot is missing' });
+            return;
+        } else if (!rePassword) {
+            this.setState({ validationErr: 'Confirm Password field cannot is missing' });
+            return;
+        } else if (validationPw != rePassword) {
+            this.setState({ validationErr: 'Password and Confirm password does not match' });
+            return;
+        }
+        return this.props.navigation.navigate('Avatar');
+    }
     render() {
-        const { password, rePassword, } = this.state;
+        const { credentials: { password, } } = this.props;
+        const { rePassword, validationPw, validationErr, } = this.state;
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={{ flex: 1 }}>
@@ -27,18 +47,16 @@ export class Password extends React.Component {
                         <Text style={styles.subTxt}>Keep your account safe & secure</Text>
                     </View>
 
-                    {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
-                    {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>}
-
                     <View style={styles.inputContainer}>
                         <View>
                             <Text style={styles.inputHolder}>Password</Text>
                             <Item
                                 style={styles.inputTxt}
-                                // error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
+                                error={(validationPw == undefined || validationPw == '') && validationErr != undefined}
                                 rounded>
                                 <Input
-                                    onChangeText={e => this.setState({ password: e })}
+                                    onChangeText={e => this.setState({ validationPw: e, validationErr: undefined })}
+                                    onEndEditing={(e) => this.props.userDetails({ password: e.nativeEvent.text })}
                                     placeholder={'********'}
                                     placeholderTextColor={colors.btnDisabled}
                                     style={styles.input}
@@ -52,10 +70,10 @@ export class Password extends React.Component {
                         <Text style={styles.inputHolder}>Confirm Password</Text>
                         <Item
                             style={styles.inputTxt}
-                            error={(this.email === '') && this.state.validationErr}
+                            error={((validationPw == '' || validationPw == undefined) || (validationPw !== rePassword)) && validationErr != undefined}
                             rounded>
                             <Input
-                                onChangeText={e => this.setState({ rePassword: e })}
+                                onChangeText={e => this.setState({ rePassword: e, validationErr: undefined })}
                                 placeholder={'********'}
                                 placeholderTextColor={colors.btnDisabled}
                                 style={styles.input}
@@ -64,13 +82,16 @@ export class Password extends React.Component {
                         </Item>
                     </View>
 
+                    {this.state.validationErr && <Text style={{ color: colors.danger }}>{validationErr}</Text>}
+                    {/* {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>} */}
+
                     <View style={styles.btnContainer}>
                         <View style={styles.progressContainer}>
                             <View style={styles.progress}></View>
                         </View>
                         <Button
-                            onPress={() => this.props.navigation.navigate('Avatar')}
-                            disabled={password && password == rePassword ? false : true}
+                            onPress={this.handleClick}
+                            // disabled={password && password == rePassword ? false : true}
                             style={styles.btn}
                             BtnTextStyles={styles.btnText}
                             BtnText={'Next'}
@@ -153,4 +174,12 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Password;
+const mapStateToProps = state => ({
+    mobile: state.register.mobile,
+    credentials: state.register.credentials,
+    error: state.register.error,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Password);

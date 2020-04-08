@@ -4,7 +4,11 @@ import {
     ImageBackground,
     StyleSheet,
     ScrollView,
+    TouchableOpacity,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../actions';
 import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import Text from '../../config/AppText';
@@ -18,6 +22,24 @@ export class Verify extends React.Component {
         isProccessing: false,
         validationErr: false,
         token: '',
+    }
+    UNSAFE_componentWillReceiveProps(prevProps) {
+        if (prevProps.status && prevProps.status != this.props.status) {
+            this.props.navigation.navigate('Name');
+        }
+    }
+    handleChange = (e) => {
+        this.setState({ token: e }, () => {
+            // const { token } = this.state;
+            const { token } = this.props;
+            if (token && token.length == 4) {
+                // this.props.navigation.navigate('Name');
+                return this.props.verifyOTP({ statusCode: this.state.token }, token);
+            }
+        });
+    }
+    resend = () => {
+        this.props.generateOTP(this.props.otpCredentials);
     }
     render() {
         return (
@@ -36,7 +58,7 @@ export class Verify extends React.Component {
                             <OTPTextView
                                 containerStyle={styles.otpInputContainer}
                                 textInputStyle={styles.otpTextInput}
-                                handleTextChange={token => this.setState({ token })}
+                                handleTextChange={this.handleChange}
                                 inputCount={4}
                                 tintColor={'#A4A4A4'}
                                 keyboardType="numeric"
@@ -47,7 +69,7 @@ export class Verify extends React.Component {
                             <View style={styles.progressContainer}>
                                 <View style={styles.progress}></View>
                             </View>
-                            <View style={styles.actionBtn}>
+                            {/* <View style={styles.actionBtn}>
                                 <Button
                                     shadow
                                     onPress={() => this.props.navigation.navigate('Name')}
@@ -62,6 +84,14 @@ export class Verify extends React.Component {
                                     BtnTextStyles={styles.btnText}
                                     BtnText={'Whatsapp me'}
                                 />
+                            </View> */}
+                            <View style={styles.resendTextContainer}>
+                                <TouchableOpacity
+                                    onPress={this.resend}
+                                    activeOpacity={0.8}
+                                >
+                                    <Text style={styles.resendText1}>I didn't get it. <Text style={styles.resendText2}>Resend</Text></Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -192,7 +222,28 @@ const styles = StyleSheet.create({
     alertTxt: {
         marginTop: 10,
         fontSize: 16,
-    }
+    },
+    resendTextContainer: {
+        marginTop: 20,
+        alignItems: 'center',
+    },
+    resendText1: {
+        color: colors.txtGray,
+        fontFamily: fonts.nunitoBold,
+    },
+    resendText2: {
+        textDecorationLine: 'underline',
+        color: colors.default,
+        fontFamily: fonts.nunitoBold,
+    },
 })
 
-export default Verify;
+const mapStateToProps = state => ({
+    status: state.register.status,
+    token: state.register.token,
+    otpCredentials: state.register.otpCredentials,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Verify);

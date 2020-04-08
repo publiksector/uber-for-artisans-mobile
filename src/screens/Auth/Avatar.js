@@ -5,11 +5,15 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../actions';
 import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import { Item, Input, Thumbnail } from 'native-base';
 import Text from '../../config/AppText';
 import ImagePicker from 'react-native-image-crop-picker';
+import NavigationService from '../../navigation/NavigationService';
 
 export class Avatar extends React.Component {
     state = {
@@ -17,9 +21,15 @@ export class Avatar extends React.Component {
         validationErr: false,
         avatar: {
             uri: undefined,
-            type: undefined,
-            name: undefined,
+            base64: undefined,
+            mime: undefined,
         },
+    }
+
+    UNSAFE_componentWillReceiveProps(prevProps){
+        if (prevProps.authenticated && prevProps.authenticated != this.props.authenticated) {
+            this.props.navigation.dispatch(NavigationService.resetAction('OnBoard1'));
+        }
     }
 
     openGallery = () => {
@@ -36,8 +46,15 @@ export class Avatar extends React.Component {
             });
         });
     }
+    doRegister = () => {
+        this.setState({ isProccessing: true, });
+        const { credentials, token, } = this.props;
+        const { avatar } = this.state;
+        var obj = Object.assign(credentials, { avatar: avatar.base64 });
+        return this.props.doRegister(credentials, token);
+    }
     render() {
-        const { avatar: { uri, } } = this.state;
+        const { avatar: { uri, }, isProccessing, } = this.state;
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={{ flex: 1 }}>
@@ -68,9 +85,10 @@ export class Avatar extends React.Component {
                             <View style={styles.progress}></View>
                         </View>
                         <Button
-                            onPress={() => this.props.navigation.navigate('Verify')}
+                            onPress={this.doRegister}
                             disabled={!uri ? true : false}
                             style={styles.btn}
+                            loading={isProccessing}
                             BtnTextStyles={styles.btnText}
                             BtnText={'Finish Signup'}
                         />
@@ -165,4 +183,13 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Avatar;
+const mapStateToProps = state => ({
+    credentials: state.register.credentials,
+    authenticated: state.user.authenticated,
+    token: state.register.token,
+    error: state.register.error,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Avatar);

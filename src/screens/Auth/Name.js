@@ -5,6 +5,9 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../actions';
 import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import { Item, Input } from 'native-base';
@@ -20,7 +23,7 @@ export class Name extends React.Component {
         lastName: undefined,
     }
     render() {
-        const { firstName, lastName, } = this.state;
+        const { credentials: { firstName, lastName, } } = this.props;
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={{ flex: 1 }}>
@@ -40,7 +43,9 @@ export class Name extends React.Component {
                                 // error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
                                 rounded>
                                 <Input
-                                    onChangeText={e => this.setState({ firstName: e })}
+                                    // onChangeText={e => this.setState({ firstName: e })}
+                                    onEndEditing={(e) => this.props.userDetails({ firstName: e.nativeEvent.text })}
+                                    defaultValue={firstName}
                                     placeholder={'John'}
                                     placeholderTextColor={colors.btnDisabled}
                                     style={styles.input}
@@ -56,7 +61,9 @@ export class Name extends React.Component {
                             error={(this.email === '') && this.state.validationErr}
                             rounded>
                             <Input
-                                onChangeText={e => this.setState({ lastName: e })}
+                                // onChangeText={e => this.setState({ lastName: e })}
+                                onEndEditing={(e) => this.props.userDetails({ lastName: e.nativeEvent.text })}
+                                defaultValue={lastName}
                                 placeholder={'Doe'}
                                 placeholderTextColor={colors.btnDisabled}
                                 style={styles.input}
@@ -71,7 +78,7 @@ export class Name extends React.Component {
                     </View>
                     <Button
                         onPress={() => this.props.navigation.navigate('Password')}
-                        disabled={!firstName || !lastName ? true : false}
+                        disabled={firstName && lastName ? false : true}
                         style={styles.btn}
                         BtnTextStyles={styles.btnText}
                         BtnText={'Next'}
@@ -153,4 +160,12 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Name;
+const mapStateToProps = state => ({
+    mobile: state.register.mobile,
+    credentials: state.register.credentials,
+    error: state.register.error,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Name);

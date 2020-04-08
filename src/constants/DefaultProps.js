@@ -18,6 +18,7 @@ export const colors = {
     default_text: '#9703FC',
     btnDisabled: "#8FB9D1",
     facebook: '#3C5A9A',
+    txtGray: '#BEBEBE',
 }
 //bg-F5FCFF
 
