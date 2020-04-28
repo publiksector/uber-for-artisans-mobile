@@ -30,7 +30,7 @@ class Alert extends React.Component {
                         </TouchableOpacity>
                     </View> : null}
                     <View style={styles.child___container}>
-                        <View style={{ paddingVertical: 30, paddingHorizontal: 0, alignItems: 'center', }}>
+                        <View style={{ paddingVertical: 10, paddingHorizontal: 0, alignItems: 'center', }}>
                             {this.props.children}
                         </View>
                     </View>

@@ -33,16 +33,26 @@ export default function registerReducer(state = initialState, action) {
                 validate: true,
                 mobile: action.payload.phoneNumber,
                 otpCredentials: action.payload,
+                message: undefined,
+                status: undefined,
                 error: undefined,
             }
         case constants.GENERATE_OTP:
             return Object.assign({}, state, {
                 isProcessing: true,
                 token: undefined,
+                validate: undefined,
                 error: undefined,
             })
         case constants.GENERATE_OTP_SUCCESS:
-            if (action.payload.response && action.payload.response.data.verificationStatus == true) {
+            if (action.payload.response && action.payload.response.success == false) {
+                return Object.assign({}, state, {
+                    status:false,
+                    message: action.payload.response.message,
+                    isProcessing: false,
+                })
+            }
+            if (action.payload.response && action.payload.response.data && action.payload.response.data.verificationStatus == true) {
                 return Object.assign({}, state, {
                     verified: true,
                     token: action.payload.response.data.token,
@@ -62,7 +72,7 @@ export default function registerReducer(state = initialState, action) {
             })
         case constants.VERIFY_OTP:
             return Object.assign({}, state, {
-                status: false,
+                status: undefined,
                 error: undefined,
                 isProcessing: true,
             })

@@ -10,11 +10,14 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//  [GMSPlacesClient provideAPIKey:@"AIzaSyA-HjztLKyWGOUaIG9Bx_n6Ie_A5p1qMkQ"];
+  [GMSServices provideAPIKey:@"AIzaSyA-HjztLKyWGOUaIG9Bx_n6Ie_A5p1qMkQ"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"uber_for_artisans_mobile"

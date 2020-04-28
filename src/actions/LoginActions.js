@@ -16,7 +16,7 @@ export const doLogin = credentials => (console.log(config.api), {
             {
                 type: constants.AUTH_USER_SUCCESS,
                 payload: (action, state, response) => response.json().then(response => {
-                    store.getState().socket.emit('Authorized', response.data.user);
+                    // store.getState().socket.emit('Authorized', response.data.user);
                     return {
                         response,
                     }

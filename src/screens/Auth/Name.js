@@ -24,6 +24,7 @@ export class Name extends React.Component {
     }
     render() {
         const { credentials: { firstName, lastName, } } = this.props;
+        // const { firstName, lastName, } = this.state;
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={{ flex: 1 }}>
@@ -43,7 +44,7 @@ export class Name extends React.Component {
                                 // error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
                                 rounded>
                                 <Input
-                                    // onChangeText={e => this.setState({ firstName: e })}
+                                    onChangeText={e => this.setState({ firstName: e })}
                                     onEndEditing={(e) => this.props.userDetails({ firstName: e.nativeEvent.text })}
                                     defaultValue={firstName}
                                     placeholder={'John'}
@@ -61,7 +62,7 @@ export class Name extends React.Component {
                             error={(this.email === '') && this.state.validationErr}
                             rounded>
                             <Input
-                                // onChangeText={e => this.setState({ lastName: e })}
+                                onChangeText={e => this.setState({ lastName: e })}
                                 onEndEditing={(e) => this.props.userDetails({ lastName: e.nativeEvent.text })}
                                 defaultValue={lastName}
                                 placeholder={'Doe'}
@@ -78,7 +79,7 @@ export class Name extends React.Component {
                     </View>
                     <Button
                         onPress={() => this.props.navigation.navigate('Password')}
-                        disabled={firstName && lastName ? false : true}
+                        disabled={this.state.firstName && this.state.lastName ? false : true}
                         style={styles.btn}
                         BtnTextStyles={styles.btnText}
                         BtnText={'Next'}

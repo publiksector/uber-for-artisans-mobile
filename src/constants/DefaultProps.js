@@ -19,12 +19,14 @@ export const colors = {
     btnDisabled: "#8FB9D1",
     facebook: '#3C5A9A',
     txtGray: '#BEBEBE',
+    navColor: '#20494C',
 }
 //bg-F5FCFF
 
 export const fonts = {
     nunitoRegular: 'NunitoSans-Regular',
     nunitoBold: 'NunitoSans-Bold',
+    nunitoMedium: 'NunitoSans-SemiBold',
     nunitoBlack: 'NunitoSans-Black',
     nunitoRegular: 'NunitoSans-Regular',
     nunitoItalic: 'NunitoSans-Italic',

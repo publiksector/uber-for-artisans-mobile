@@ -14,8 +14,9 @@ import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import { Item, Input, Icon } from 'native-base';
 import Text from '../../config/AppText';
-import DeviceInfo, { getPhoneNumber, } from 'react-native-device-info';
+import DeviceInfo, { getPhoneNumber,getISO, } from 'react-native-device-info';
 import CountryPicker, { getAllCountries } from 'react-native-country-picker-modal';
+import NavigationService from '../../navigation/NavigationService';
 
 const COUNTRY = ['NG'];
 export class Auth extends React.Component {
@@ -35,9 +36,11 @@ export class Auth extends React.Component {
             });
 
         this.state = {
+            error: undefined,
+            validationErr: false,
             cca2,
             callingCode,
-            isProccessing: false,
+            isProcessing: false,
             validationErr: false,
             phone: undefined,
             visible: false,
@@ -62,9 +65,12 @@ export class Auth extends React.Component {
             this.props.navigation.navigate('Name');
             this.setState({ isProcessing: false, });
         }
+        if (prevProps.status == false && this.props.status !== prevProps.status) {
+            this.setState({ isProcessing: false, validationErr: prevProps.message.trim(), });
+        }
         if (prevProps.token && this.props.token !== prevProps.token) {
             if (prevProps.verified == false) {
-                this.props.navigation.navigate('Verify');
+                this.props.navigation.dispatch(NavigationService.resetAction('Verify'));
                 this.setState({ isProcessing: false, });
             }
         }
@@ -74,13 +80,18 @@ export class Auth extends React.Component {
     }
 
     validateMobile = () => {
-        const { countryCode, } = this.state;
-        this.setState({ error: undefined, isProccessing: true, });
+        const { callingCode, } = this.state;
+        const { mobile, } = this.props;
+        if (!mobile) {
+            this.setState({ validationErr: "Oops! Phone number field cannot be empty", });
+            return;
+        }
+        this.setState({ error: undefined, isProcessing: true, });
         if (!this.props.mobile || this.props.mobile == '') {
             return alert('please enter your phone number');
         }
         this.setState({ isProcessing: true, });
-        this.props.validateMobile(countryCode);
+        this.props.validateMobile(`+${callingCode}`);
     }
     getPhone = () => {
         getPhoneNumber().then(e => console.log(e))
@@ -90,7 +101,7 @@ export class Auth extends React.Component {
     }
     render() {
         const onSelect = value => {
-            this.props.countryCode(value.cca2);
+            // this.props.countryCode(value.cca2);
             this.setState({ cca2: value.cca2, callingCode: value.callingCode, countryCode: value.cca2, visible: true, });
         }
         const onClose = _ => this.setState({ visible: false, });
@@ -106,6 +117,7 @@ export class Auth extends React.Component {
             withEmoji,
         } = this.state;
         const { mobile } = this.props;
+        const { validationErr, isProcessing, } = this.state;
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.welcome}>
@@ -113,28 +125,13 @@ export class Auth extends React.Component {
                     <Text style={styles.subTxt}>We just want to verify you</Text>
                 </View>
 
-                {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
-                {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>}
-
                 <View style={styles.mainContainer}>
                     <View style={styles.inputContainer}>
-                        {/* <CountryPicker
-                            containerButtonStyle={styles.countryModal}
-                            withEmoji
-                            withCallingCode
-                            withFilter
-                            visible={visible}
-                            onClose={() => this.setState({ visible: false, })}
-                            onSelect={value => {
-                                this.setState({ cca2: value.cca2, callingCode: value.callingCode });
-                            }}
-                        /> */}
-
                         <View>
                             <Text style={styles.inputHolder}>Phone Number</Text>
                             <Item
                                 style={styles.inputTxt}
-                                // error={(this.firstname === undefined || this.lastname === '') && this.state.validationErr}
+                                error={((mobile === undefined || mobile === '') && validationErr) || validationErr ? true : false}
                                 rounded>
                                 <TouchableOpacity
                                     style={styles.inputAddon}
@@ -160,35 +157,16 @@ export class Auth extends React.Component {
                                 <Input
                                     onChangeText={mobile => this.props.inputNumber(mobile)}
                                     autoCapitalize={'none'}
+                                    keyboardType={'number-pad'}
                                     placeholder={'123 456 7890'}
                                     placeholderTextColor={colors.btnDisabled}
                                     style={styles.input}
                                 />
                             </Item>
                         </View>
+                        {validationErr && <Text style={styles.validationTxt}>{validationErr}</Text>}
                     </View>
 
-                    {/* <View style={styles.container2}>
-                        <View style={styles.border1}></View>
-                        <View style={styles.or}><Text>OR</Text></View>
-                        <View style={styles.border2}></View>
-                    </View>
-
-
-                    <View style={styles.socialLogin}>
-                        <Button
-                            style={styles.googleBtn}
-                            BtnTextStyles={styles.btnText}
-                            shadow
-                            Icon={<GoogleIcon />}
-                        />
-                        <Button
-                            style={styles.facebookBtn}
-                            BtnTextStyles={styles.btnText}
-                            shadow
-                            Icon={<FacebookIcon />}
-                        />
-                    </View> */}
                 </View>
 
                 <View style={styles.btnContainer}>
@@ -196,10 +174,11 @@ export class Auth extends React.Component {
                         <View style={styles.progress}></View>
                     </View>
                     <Button
-                        onPress={this.validateMobile}
+                        onPress={() => this.props.navigation.dispatch(NavigationService.resetAction('Verify'))}
+                        // onPress={this.validateMobile}
                         disabled={!mobile ? true : false}
                         style={styles.btn}
-                        loading={this.state.isProccessing}
+                        loading={isProcessing}
                         BtnTextStyles={styles.btnText}
                         BtnText={'Send my code here'}
                     />
@@ -342,10 +321,17 @@ const styles = StyleSheet.create({
     countryModal: {
         backgroundColor: 'transparent',
     },
+    validationTxt: {
+        color: colors.danger,
+        textAlign: 'center',
+        paddingHorizontal: 30
+    },
 })
 
 const mapStateToProps = state => ({
     validate: state.register.validate,
+    status: state.register.status,
+    message: state.register.message,
     verified: state.register.verified,
     mobile: state.register.mobile,
     token: state.register.token,

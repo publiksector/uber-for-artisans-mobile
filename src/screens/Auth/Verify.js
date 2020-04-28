@@ -16,38 +16,60 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import OTPTextView from 'react-native-otp-textinput';
 import Alert from '../../components/Alert';
 import { SuccessIcon, } from '../Assets';
+import { Spinner } from 'native-base';
 
 export class Verify extends React.Component {
     state = {
         isProccessing: false,
-        validationErr: false,
+        validationErr: undefined,
         token: '',
+        visible: undefined,
+        loading: undefined,
+        success: undefined,
+        resending: undefined,
+        resent: undefined,
     }
     UNSAFE_componentWillReceiveProps(prevProps) {
-        if (prevProps.status && prevProps.status != this.props.status) {
-            this.props.navigation.navigate('Name');
+        if (prevProps.status == false && prevProps.status != this.props.status) {
+            this.setState({ visible: false, validationErr: 'Incorrect token supplied', });
+        }
+        if (prevProps.status == true && prevProps.status != this.props.status) {
+            this.setState({ visible: true, loading: undefined, success: true, });
+            setTimeout(() => {
+                this.props.navigation.navigate('Name');
+            }, 2000);
+        }
+        if (prevProps.token && this.props.token !== prevProps.token) {
+            if (prevProps.verified == false) {
+                this.setState({ resent: true, resending: undefined, });
+            }
         }
     }
     handleChange = (e) => {
         this.setState({ token: e }, () => {
             // const { token } = this.state;
-            const { token } = this.props;
+            this.setState({ validationErr: undefined, });
+            const { token } = this.state;
             if (token && token.length == 4) {
-                // this.props.navigation.navigate('Name');
-                return this.props.verifyOTP({ statusCode: this.state.token }, token);
+                this.props.navigation.navigate('Name');
+                // this.setState({ visible: true, loading: true, });
+                // return this.props.verifyOTP({ statusCode: token }, this.props.token);
             }
         });
     }
     resend = () => {
+        this.setState({ resending: true, });
         this.props.generateOTP(this.props.otpCredentials);
     }
     render() {
+        const { visible, loading, success, validationErr, resending, resent, } = this.state;
+        // const { otpCredentials: {number} } = this.props;
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <SafeAreaView>
                     <View style={styles.split}>
                         <View style={styles.welcome}>
-                            <Text style={styles.h1}>Let's verify your 0701 234 5678</Text>
+                            <Text style={styles.h1}>Let's verify your number</Text>
                             <Text style={styles.subTxt}>This would only take a second</Text>
                         </View>
 
@@ -60,10 +82,13 @@ export class Verify extends React.Component {
                                 textInputStyle={styles.otpTextInput}
                                 handleTextChange={this.handleChange}
                                 inputCount={4}
-                                tintColor={'#A4A4A4'}
+                                tintColor={validationErr ? 'red' : colors.default}
+                                offTintColor={validationErr ? 'red' : undefined}
                                 keyboardType="numeric"
                             />
+                            {validationErr && <Text style={{ color: colors.danger, marginTop: 10, }}>{validationErr}</Text>}
                         </View>
+
 
                         <View style={styles.btnContainer}>
                             <View style={styles.progressContainer}>
@@ -90,16 +115,21 @@ export class Verify extends React.Component {
                                     onPress={this.resend}
                                     activeOpacity={0.8}
                                 >
-                                    <Text style={styles.resendText1}>I didn't get it. <Text style={styles.resendText2}>Resend</Text></Text>
+                                    {!resending && !resent && <Text style={styles.resendText1}>I didn't get it. <Text style={styles.resendText2}>Resend</Text></Text>}
+                                    {resending && <Text>Sending...</Text>}
+                                    {resent && <Text style={styles.resent}>Sent</Text>}
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </View>
                     <Alert
-                        isVisible={false}
+                        isVisible={visible}
                     >
-                        <SuccessIcon />
-                        <Text style={styles.alertTxt}>Success</Text>
+                        {loading && <Spinner />}
+                        {loading && <Text>Verifying...</Text>}
+                        {success && <View>
+                            <SuccessIcon />
+                            <Text style={styles.alertTxt}>Success</Text></View>}
                     </Alert>
                 </SafeAreaView>
             </ScrollView>
@@ -236,11 +266,16 @@ const styles = StyleSheet.create({
         color: colors.default,
         fontFamily: fonts.nunitoBold,
     },
+    resent: {
+        color: colors.success,
+        fontFamily: fonts.nunitoBold,
+    },
 })
 
 const mapStateToProps = state => ({
     status: state.register.status,
     token: state.register.token,
+    verified: state.register.verified,
     otpCredentials: state.register.otpCredentials,
 })
 

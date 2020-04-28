@@ -11,6 +11,8 @@ import NameScreen from '../screens/Auth/Name';
 import PasswordScreen from '../screens/Auth/Password';
 import AvatarScreen from '../screens/Auth/Avatar';
 import OnBoardScreen1 from '../screens/Onboard';
+import HomeScreen from '../screens/Home';
+import ArtisanExploreScreen from '../screens/ArtisanExplore';
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -55,6 +57,16 @@ const App = () => {
         <Stack.Screen
           name="OnBoard1"
           component={OnBoardScreen1}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ArtisanExplore"
+          component={ArtisanExploreScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

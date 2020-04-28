@@ -90,7 +90,8 @@ export class Password extends React.Component {
                             <View style={styles.progress}></View>
                         </View>
                         <Button
-                            onPress={this.handleClick}
+                            onPress={() => this.props.navigation.navigate('Avatar')}
+                            // onPress={this.handleClick}
                             // disabled={password && password == rePassword ? false : true}
                             style={styles.btn}
                             BtnTextStyles={styles.btnText}

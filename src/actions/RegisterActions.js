@@ -17,9 +17,9 @@ export function inputNumber(number) {
 export function validateMobile(countryCode) {
     return (dispatch, store) => {
         let number = store().register.mobile;
-        if (!number.startsWith(234) && !number.startsWith('+234')) {
-            number = '0' + number;
-        }
+        // if (!number.startsWith(234) && !number.startsWith('+234')) {
+        //     number = '0' + number;
+        // }
         dispatch({
             type: constants.VALIDATE_NUMBER,
             payload: { phoneNumber: number, countryCode, }
@@ -27,7 +27,7 @@ export function validateMobile(countryCode) {
     }
 }
 
-export const generateOTP = data => ({
+export const generateOTP = data => (console.log(data),{
     [RSAA]: {
         endpoint: `${config.api.host}/api/user/register`,
         method: 'POST',

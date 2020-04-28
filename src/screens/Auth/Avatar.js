@@ -26,9 +26,9 @@ export class Avatar extends React.Component {
         },
     }
 
-    UNSAFE_componentWillReceiveProps(prevProps){
+    UNSAFE_componentWillReceiveProps(prevProps) {
         if (prevProps.authenticated && prevProps.authenticated != this.props.authenticated) {
-            this.props.navigation.dispatch(NavigationService.resetAction('OnBoard1'));
+            this.props.navigation.dispatch(NavigationService.resetAction('Home'));
         }
     }
 
@@ -85,7 +85,8 @@ export class Avatar extends React.Component {
                             <View style={styles.progress}></View>
                         </View>
                         <Button
-                            onPress={this.doRegister}
+                            onPress={() => this.props.navigation.dispatch(NavigationService.resetAction('Home'))}
+                            // onPress={this.doRegister}
                             disabled={!uri ? true : false}
                             style={styles.btn}
                             loading={isProccessing}

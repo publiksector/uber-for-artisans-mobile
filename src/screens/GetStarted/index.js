@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     btnText: {
         color: colors.white,
         fontWeight: '500',
+        fontFamily: fonts.nunitoBold,
     },
     loginBtn: {
         backgroundColor: 'transparent',

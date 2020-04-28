@@ -36,14 +36,14 @@ export default function userReducer(state = initialState, action) {
                 message: undefined,
             })
         case constants.AUTH_USER_SUCCESS:
-            if (!action.payload.response.success) {
+            if (action.payload.response && !action.payload.response.success) {
                 return {
                     ...state,
                     status: false,
                     message: action.payload.response.message,
                 }
             }
-            if (action.payload.response.data && action.payload.response.data.token) {
+            if (action.payload.response && action.payload.response.data && action.payload.response.data.token) {
                 AsyncStorage.setItem(constants.TOKEN, action.payload.response.data.token);
                 return {
                     ...state,
