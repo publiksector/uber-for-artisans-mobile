@@ -13,12 +13,14 @@ import AvatarScreen from '../screens/Auth/Avatar';
 import OnBoardScreen1 from '../screens/Onboard';
 import HomeScreen from '../screens/Home';
 import ArtisanExploreScreen from '../screens/ArtisanExplore';
+import ProfileScreen from '../screens/Account/Profile';
+import ChatScreen from '../screens/Chat';
 
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="GetStarted">
+      <Stack.Navigator initialRouteName="ArtisanExplore">
         <Stack.Screen
           name="GetStarted"
           component={GetStartedScreen}
@@ -67,6 +69,16 @@ const App = () => {
         <Stack.Screen
           name="ArtisanExplore"
           component={ArtisanExploreScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

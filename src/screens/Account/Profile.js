@@ -1,64 +1,41 @@
 import React from 'react';
 import {
     View,
+    ImageBackground,
     StyleSheet,
+    StatusBar,
+    Image,
 } from 'react-native';
 import { colors, fonts } from '../../constants/DefaultProps';
 import Button from '../../components/Button';
 import Text from '../../config/AppText';
-import { Icon, Card, Content } from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { CarpenterIconSM, FilterIcon, HistoryIcon, ChatIcon, ExploreIcon, CloseIcon, BackIcon } from '../Assets';
-import { artisans, } from '../../fakers';
-import SortSlider from './SortSlider';
-import ArtisanList from './ArtisanList';
+import { Thumbnail, Icon, Card, Content } from 'native-base';
+import img1 from '../../imgs/avatar1.jpg';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import babysitter1 from '../../imgs/babysitter3.jpeg';
+import { Rating, AirbnbRating } from 'react-native-ratings';
+import { CloseIcon, BackIcon, HistoryIcon, ChatIcon, ExploreIcon, CarpenterIconSM } from '../Assets';
+import Reviews from './Reviews';
+import { reviews } from '../../fakers';
 
-export class ArtisanExplore extends React.Component {
+export class Profile extends React.Component {
     state = {
         hideTab: false,
-        selected: undefined,
-        toggleSlider: undefined,
-        rating: 0,
-        toggleCheck: false,
-    }
-    selectCategory = (id) => {
-        this.setState({ selected: id, });
-    }
-    toggleSlider = () => {
-        const { hideTab, toggleSlider, } = this.state;
-        this.setState({ toggleSlider: !toggleSlider, hideTab: !hideTab, });
-    }
-    rate = (e) => {
-        this.setState({
-            rating: e,
-        });
-    }
-    toggleCheck = () => {
-        const { toggleCheck, } = this.state;
-        this.setState({
-            toggleCheck: !toggleCheck,
-        });
-    }
-    clear = () => {
-        this.setState({
-            rating: 0,
-            toggleCheck: false,
-        });
     }
     render() {
-        const { hideTab, toggleSlider, toggleCheck, rating, } = this.state;
+        const { hideTab, } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.nav}>
                     <View style={styles.navContent}>
                         <View style={styles.navChild}>
-                            <TouchableOpacity
+                            <TouchableOpacity 
                                 onPress={() => this.props.navigation.goBack()}
                                 style={styles.icon}>
                                 <BackIcon />
                             </TouchableOpacity>
                             <View>
-                                <Text style={styles.text1}>Negotiations</Text>
+                                <Text style={styles.text1}>Profile</Text>
                             </View>
                             <View style={styles.icon}>
                                 <CloseIcon />
@@ -66,22 +43,54 @@ export class ArtisanExplore extends React.Component {
                         </View>
                     </View>
                 </View>
-                <Content contentContainerStyle={styles.categoryContainer}>
-                    <View style={styles.categoryHeader}>
-                        <View>
-                            <Text style={styles.title}>Carpenter</Text>
-                            <Text style={styles.titleCaption}>The decision is in your hands</Text>
+                <Content contentContainerStyle={styles.contentContainer}>
+                    <View style={styles.data}>
+                        <Image
+                            style={styles.img}
+                            source={babysitter1}
+                        />
+                        <View style={styles.overlay}>
+                            <View style={styles.onlineDot}></View>
+                            <View style={styles.artisanIcon}>
+                                <CarpenterIconSM />
+                            </View>
                         </View>
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={this.toggleSlider}
-                        >
-                            <FilterIcon />
-                        </TouchableOpacity>
+                        <View style={styles.txtContainer}>
+                            <Text style={styles.text2}>John Doe</Text>
+                            <Rating
+                                onFinishRating={this.ratingCompleted}
+                                style={{ paddingVertical: 5, }}
+                                imageSize={15}
+                                ratingCount={5}
+                                startingValue={4}
+                                readonly
+                            />
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                            >
+                                <Text style={styles.text3}>Carpenter</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.actionBtn}>
+                            <Button
+                                shadow
+                                onPress={() => this.props.navigation.navigate('Chat')}
+                                style={styles.chatBtn}
+                                BtnTextStyles={styles.chatBtnTxt}
+                                BtnText={'Chat'}
+                            />
+                            <Button
+                                shadow
+                                onPress={() => this.props.navigation.navigate('Chat')}
+                                style={styles.hireBtn}
+                                BtnTextStyles={styles.hireBtnTxt}
+                                BtnText={'Hire'}
+                            />
+                        </View>
                     </View>
-                    <ArtisanList
-                        artisans={artisans}
-                        navigation={this.props.navigation}
+                    
+                    <Reviews
+                        reviews={reviews}
                     />
                 </Content>
                 {!hideTab && <Card style={[styles.tabShadow]}>
@@ -98,17 +107,6 @@ export class ArtisanExplore extends React.Component {
                         <Text style={styles.tabText}>History</Text>
                     </View>
                 </Card>}
-                {toggleSlider && <SortSlider
-                    {...this.props}
-                    explore={() => this.props.navigation.navigate('ArtisanExplore')}
-                    // hideTab={(e) => this.setState({ hideTab: e, })}
-                    rate={this.rate}
-                    rating={rating}
-                    toggleCheck={this.toggleCheck}
-                    checked={toggleCheck}
-                    cancel={this.toggleSlider}
-                    clear={this.clear}
-                />}
             </View>
         )
     }
@@ -134,8 +132,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 20,
         paddingBottom: 10,
-        alignItems: 'flex-end',
-        // backgroundColor:'red'
+        alignItems: 'flex-start',
     },
     img: {
         width: 100,
@@ -147,7 +144,7 @@ const styles = StyleSheet.create({
     text1: {
         color: colors.white,
         fontFamily: fonts.nunitoMedium,
-        fontSize: 17,
+        fontSize: 18,
     },
     text2: {
         color: colors.black,
@@ -155,9 +152,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     text3: {
-        color: colors.default,
-        fontSize: 16,
-        padding: 10,
+        color: colors.txtGray,
+        fontSize: 11,
+        padding: 3,
     },
     reviewTxt: {
         color: '#999999',
@@ -171,33 +168,13 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
     txtContainer: {
-        alignItems: 'flex-start',
-        marginLeft: 10,
+        alignItems: 'center',
         justifyContent: 'center',
     },
-    Input___shadow: {
-        marginTop: 10,
-        borderWidth: 1,
-        borderRadius: 10,
-        flexDirection: 'row',
-        borderBottomWidth: 0,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 5,
-        zIndex: 1000,
-        alignSelf: 'center',
-        width: '100%',
-        flexDirection: 'row',
-        paddingVertical: 10,
-    },
-    categoryContainer: {
+    contentContainer: {
         flexGrow: 1,
-        // zIndex: 500,
-        // height: '8%',
         paddingHorizontal: 20,
-        // width: '100%',
+        marginTop: 10,
     },
     containerContent: {
         // backgroundColor: 'red',
@@ -208,14 +185,13 @@ const styles = StyleSheet.create({
     },
     overlay: {
         position: 'absolute',
-        top: 20,
         borderRadius: 5,
-        height: 96,
-        width: 115,
+        height: 112,
+        width: 118,
     },
     onlineDot: {
-        width: 18,
-        height: 18,
+        width: 15,
+        height: 15,
         borderRadius: 18 / 2,
         borderColor: colors.white,
         borderWidth: 2,
@@ -224,8 +200,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
     },
+    caption: {
+        color: colors.white,
+        fontFamily: fonts.nunitoMedium,
+        fontSize: 18,
+    },
     icon: {
         justifyContent: 'center'
+        // color: '#999999',
+        // fontSize: 30,
     },
     artisanIconOverlay: {
         // width: 252,
@@ -237,40 +220,22 @@ const styles = StyleSheet.create({
         right: -19,
     },
     artisanIcon: {
-        width: 25,
-        height: 25,
-        borderRadius: 25 / 2,
+        width: 20,
+        height: 20,
+        borderRadius: 20 / 2,
         borderColor: colors.white,
         borderWidth: 3,
         backgroundColor: '#20494C',
         position: 'absolute',
-        right: 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
     content1: {
         flexDirection: 'row',
     },
-    title: {
-        fontFamily: fonts.nunitoRegular,
-        fontSize: 28,
-        color: '#666666',
-        fontWeight: '300',
-    },
-    titleCaption: {
-        fontFamily: fonts.nunitoRegular,
-        fontSize: 13,
-        color: colors.black,
-    },
-    categoryHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginVertical: 20,
-        // alignItems:'flex-end'
-    },
-    categoryHeaderIcon: {
-        fontSize: 40,
-        color: colors.default,
+    data: {
+        marginTop: 10,
+        alignItems: 'center',
     },
     tabShadow: {
         position: 'absolute',
@@ -306,6 +271,29 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
     },
+    actionBtn: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20,
+        width: '100%',
+    },
+    chatBtn: {
+        backgroundColor: colors.white,
+        borderColor: colors.default,
+        borderWidth: 1,
+        width: '45%',
+    },
+    hireBtn: {
+        width: '45%',
+    },
+    chatBtnTxt: {
+        color: colors.default,
+        fontWeight: '500',
+    },
+    hireBtnTxt: {
+        color: colors.white,
+        fontWeight: '500',
+    },
 })
 
-export default ArtisanExplore;
+export default Profile;
