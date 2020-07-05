@@ -2,6 +2,7 @@ import React from 'react';
 import Svg, {
     Path, Circle, Defs, ClipPath, Rect, G, Line, Mask,
 } from "react-native-svg";
+import { colors } from '../../constants/DefaultProps';
 
 export const GoogleIcon = () => {
     return <Svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -113,5 +114,36 @@ export const CloseIcon = ({ active = false }) => {
 export const BackIcon = ({ active = false }) => {
     return <Svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <Path d="M7 13L1 7L7 1" stroke="#8FB9D1" strokeLinecap="round" strokeLinejoin="round" />
+    </Svg>
+}
+
+export const AddIcon = ({ active = false }) => {
+    return <Svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Path d="M6 0.75V11.25M0.75 6H11.25" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    </Svg>
+}
+
+export const CameraIcon = ({ active = false }) => {
+    return <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Path d="M17.25 13.25C17.25 13.6478 17.092 14.0294 16.8107 14.3107C16.5294 14.592 16.1478 14.75 15.75 14.75H2.25C1.85218 14.75 1.47064 14.592 1.18934 14.3107C0.908035 14.0294 0.75 13.6478 0.75 13.25V5C0.75 4.60218 0.908035 4.22064 1.18934 3.93934C1.47064 3.65804 1.85218 3.5 2.25 3.5H5.25L6.75 1.25H11.25L12.75 3.5H15.75C16.1478 3.5 16.5294 3.65804 16.8107 3.93934C17.092 4.22064 17.25 4.60218 17.25 5V13.25Z" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+        <Path d="M9 11.75C10.6569 11.75 12 10.4069 12 8.75C12 7.09315 10.6569 5.75 9 5.75C7.34315 5.75 6 7.09315 6 8.75C6 10.4069 7.34315 11.75 9 11.75Z" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    </Svg>
+}
+
+export const PhotoIcon = ({ active = false }) => {
+    return <Svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Path d="M2.75 14.7501H13.25C14.0784 14.7501 14.75 14.0785 14.75 13.2501V2.75006C14.75 1.92163 14.0784 1.25006 13.25 1.25006H2.75C1.92157 1.25006 1.25 1.92163 1.25 2.75006V13.2501C1.25 14.0785 1.92157 14.7501 2.75 14.7501ZM2.75 14.7501L11 6.50006L14.75 10.2501M6.5 5.37506C6.5 5.99638 5.99632 6.50006 5.375 6.50006C4.75368 6.50006 4.25 5.99638 4.25 5.37506C4.25 4.75374 4.75368 4.25006 5.375 4.25006C5.99632 4.25006 6.5 4.75374 6.5 5.37506Z" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    </Svg>
+}
+
+export const MicIcon = ({ active = false }) => {
+    return <Svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Path d="M11.25 7.5V9C11.25 10.3924 10.6969 11.7277 9.71231 12.7123C8.72774 13.6969 7.39239 14.25 6 14.25M6 14.25C4.60761 14.25 3.27226 13.6969 2.28769 12.7123C1.30312 11.7277 0.75 10.3924 0.75 9V7.5M6 14.25V17.25M3 17.25H9M6 0.75C5.40326 0.75 4.83097 0.987053 4.40901 1.40901C3.98705 1.83097 3.75 2.40326 3.75 3V9C3.75 9.59674 3.98705 10.169 4.40901 10.591C4.83097 11.0129 5.40326 11.25 6 11.25C6.59674 11.25 7.16903 11.0129 7.59099 10.591C8.01295 10.169 8.25 9.59674 8.25 9V3C8.25 2.40326 8.01295 1.83097 7.59099 1.40901C7.16903 0.987053 6.59674 0.75 6 0.75Z" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    </Svg>
+}
+
+export const ChatSendIcon = ({ active = false }) => {
+    return <Svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Path d="M19 9.50003C19.0034 10.8199 18.6951 12.1219 18.1 13.3C17.3944 14.7118 16.3098 15.8992 14.9674 16.7293C13.6251 17.5594 12.0782 17.9994 10.5 18C9.18013 18.0035 7.87812 17.6951 6.7 17.1L1 19L2.9 13.3C2.30493 12.1219 1.99656 10.8199 2 9.50003C2.00061 7.92179 2.44061 6.37488 3.27072 5.03258C4.10083 3.69028 5.28825 2.6056 6.7 1.90003C7.87812 1.30496 9.18013 0.996587 10.5 1.00003H11C13.0843 1.11502 15.053 1.99479 16.5291 3.47089C18.0052 4.94699 18.885 6.91568 19 9.00003V9.50003Z" stroke={active ? colors.success : "#E4E4E4"} strokeLinecap="round" strokeLinejoin="round" />
     </Svg>
 }
