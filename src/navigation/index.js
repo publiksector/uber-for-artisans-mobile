@@ -20,7 +20,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ArtisanExplore">
+      <Stack.Navigator initialRouteName="GetStarted">
         <Stack.Screen
           name="GetStarted"
           component={GetStartedScreen}
