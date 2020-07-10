@@ -9,11 +9,17 @@ import Button from '../../components/Button';
 import Text from '../../config/AppText';
 import { GoogleIcon, FacebookIcon } from '../Assets';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Notify from '../../components/Notify';
 
-export class Onboard extends React.Component {
+export class GetStarted extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <Notify
+                    title="Welcome to Artisan App"
+                    message={`We connect customers to artisans at their convinience, in just a click!`}
+                    duration={8000}
+                />
                 <ImageBackground
                     style={styles.bg}
                     source={require('../../imgs/bg.jpeg')}
@@ -136,4 +142,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Onboard;
+export default GetStarted;

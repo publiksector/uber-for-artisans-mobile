@@ -16,7 +16,7 @@ import AppIntro from 'react-native-app-intro';
 import Onboarding from 'react-native-onboarding-swiper';
 import illustration from '../../imgs/illustration.png';
 
-export class Onboard1 extends React.Component {
+export class Onboard extends React.Component {
     state = {
         isProccessing: false,
         validationErr: false,
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Onboard1;
+export default Onboard;

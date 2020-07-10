@@ -24,7 +24,7 @@ export class Login extends React.Component {
         validationPhone: undefined,
         validationPw: undefined,
     }
-    UNSAFE_componentWillReceiveProps(prevProps){
+    UNSAFE_componentWillReceiveProps(prevProps) {
         if (prevProps.authenticated && prevProps.authenticated != this.props.authenticated) {
             this.props.navigation.dispatch(NavigationService.resetAction('Home'));
         }
@@ -55,94 +55,74 @@ export class Login extends React.Component {
     render() {
         const { validationErr, isProccessing, error } = this.state;
         return (
-            <ScrollView contentContainerStyle={styles.container}>
-                {/* <SafeAreaView> */}
-                <View style={styles.welcome}>
-                    <Text style={styles.h1}>Welcome back!</Text>
-                    <Text style={styles.subTxt}>Log in and book any artisan at your comfort</Text>
-                </View>
+            <>
+                <ScrollView contentContainerStyle={styles.container}>
+                    {/* <SafeAreaView> */}
+                    <View style={styles.welcome}>
+                        <Text style={styles.h1}>Welcome back!</Text>
+                        <Text style={styles.subTxt}>Log in and book any artisan at your comfort</Text>
+                    </View>
 
-                {/* {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
+                    {/* {this.state.validationErr && <Text style={{ color: colors.danger }}>One or more fields are missing</Text>}
                 {this.state.pwMatchErr && <Text style={{ color: colors.danger }}>Password and confirm password does not match</Text>} */}
 
-                <View style={styles.inputContainer}>
-                    <View>
-                        <Text style={styles.inputHolder}>Phone Number</Text>
-                        <Item
-                            style={styles.inputTxt}
-                            error={(this.phone === undefined || this.phone === '') && validationErr ? true : false}
-                            rounded>
-                            <Input
-                                onChangeText={e => this.phone = e}
-                                keyboardType={'number-pad'}
-                                placeholder={'Phone Number'}
-                                placeholderTextColor={colors.btnDisabled}
-                                style={styles.input}
-                            />
-                        </Item>
+                    <View style={styles.inputContainer}>
+                        <View>
+                            <Text style={styles.inputHolder}>Phone Number</Text>
+                            <Item
+                                style={styles.inputTxt}
+                                error={(this.phone === undefined || this.phone === '') && validationErr ? true : false}
+                                rounded>
+                                <Input
+                                    onChangeText={e => this.phone = e}
+                                    keyboardType={'number-pad'}
+                                    placeholder={'Phone Number'}
+                                    placeholderTextColor={colors.btnDisabled}
+                                    style={styles.input}
+                                />
+                            </Item>
+                        </View>
+
+                        <View style={{ marginVertical: 10 }}>
+                            <Text style={styles.inputHolder}>Password</Text>
+                            <Item
+                                style={styles.inputTxt}
+                                error={(this.password === undefined || this.password === '') && validationErr ? true : false}
+                                rounded>
+                                <Input
+                                    onChangeText={e => this.password = e}
+                                    autoCapitalize={'none'}
+                                    placeholder={'********'}
+                                    secureTextEntry={true}
+                                    placeholderTextColor={colors.btnDisabled}
+                                    style={styles.input}
+                                />
+                            </Item>
+                        </View>
+
+                        {validationErr && <Text style={styles.validationTxt}>{validationErr}</Text>}
+                        {error && <Text style={styles.validationTxt}>{error}</Text>}
                     </View>
 
-                    <View style={{ marginVertical: 10 }}>
-                        <Text style={styles.inputHolder}>Password</Text>
-                        <Item
-                            style={styles.inputTxt}
-                            error={(this.password === undefined || this.password === '') && validationErr ? true : false}
-                            rounded>
-                            <Input
-                                onChangeText={e => this.password = e}
-                                autoCapitalize={'none'}
-                                placeholder={'********'}
-                                secureTextEntry={true}
-                                placeholderTextColor={colors.btnDisabled}
-                                style={styles.input}
-                            />
-                        </Item>
-                    </View>
-
-                    {validationErr && <Text style={styles.validationTxt}>{validationErr}</Text>}
-                    {error && <Text style={styles.validationTxt}>{error}</Text>}
-                </View>
-
-                {/* <View style={styles.container2}>
-                        <View style={styles.border1}></View>
-                        <View style={styles.or}><Text>OR</Text></View>
-                        <View style={styles.border2}></View>
-                    </View>
-
-
-                    <View style={styles.socialLogin}>
-                        <Button
-                            style={styles.googleBtn}
-                            BtnTextStyles={styles.btnText}
-                            shadow
-                            Icon={<GoogleIcon />}
-                        />
-                        <Button
-                            style={styles.facebookBtn}
-                            BtnTextStyles={styles.btnText}
-                            shadow
-                            Icon={<FacebookIcon />}
-                        />
-                    </View> */}
-
-                <View style={styles.btnContainer}>
-                    {/* <Button
+                    <View style={styles.btnContainer}>
+                        {/* <Button
                             style={styles.otpBtn}
                             BtnTextStyles={styles.otpBtnText}
                             shadow
                             BtnText={'Log In'}
                         /> */}
-                    <Button
-                        onPress={this.doLogin}
-                        style={styles.btn}
-                        shadow
-                        loading={isProccessing}
-                        BtnTextStyles={styles.btnText}
-                        BtnText={'Log me in'}
-                    />
-                </View>
-                {/* </SafeAreaView> */}
-            </ScrollView>
+                        <Button
+                            onPress={this.doLogin}
+                            style={styles.btn}
+                            shadow
+                            loading={isProccessing}
+                            BtnTextStyles={styles.btnText}
+                            BtnText={'Log me in'}
+                        />
+                    </View>
+                    {/* </SafeAreaView> */}
+                </ScrollView>
+            </>
         )
     }
 }
