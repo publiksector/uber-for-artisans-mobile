@@ -105,12 +105,6 @@ export class Login extends React.Component {
                     </View>
 
                     <View style={styles.btnContainer}>
-                        {/* <Button
-                            style={styles.otpBtn}
-                            BtnTextStyles={styles.otpBtnText}
-                            shadow
-                            BtnText={'Log In'}
-                        /> */}
                         <Button
                             onPress={this.doLogin}
                             style={styles.btn}
@@ -129,7 +123,7 @@ export class Login extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         // justifyContent: 'center',
         padding: 30,
     },
@@ -154,6 +148,7 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         flex: 1,
+        // backgroundColor:"red",
         marginTop: 50,
     },
     input: {
@@ -188,7 +183,7 @@ const styles = StyleSheet.create({
     },
     btnContainer: {
         // flex: 1,
-        justifyContent: 'flex-end',
+        // justifyContent: 'flex-end',
         width: '100%',
     },
     btn: {

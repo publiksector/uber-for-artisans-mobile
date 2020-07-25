@@ -58,7 +58,7 @@ export class Profile extends React.Component {
                         <View style={styles.txtContainer}>
                             <Text style={styles.text2}>John Doe</Text>
                             <Rating
-                                onFinishRating={this.ratingCompleted}
+                                // onFinishRating={this.ratingCompleted}
                                 style={{ paddingVertical: 5, }}
                                 imageSize={15}
                                 ratingCount={5}

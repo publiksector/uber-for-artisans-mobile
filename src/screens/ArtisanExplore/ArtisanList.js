@@ -35,7 +35,7 @@ export default function (props) {
                             <View style={styles.txtContainer}>
                                 <Text style={styles.text2}>{artisan.name}</Text>
                                 <Rating
-                                    onFinishRating={this.ratingCompleted}
+                                    // onFinishRating={this.ratingCompleted}
                                     style={{ paddingVertical: 5, }}
                                     imageSize={17}
                                     ratingCount={5}

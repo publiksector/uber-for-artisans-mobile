@@ -41,15 +41,15 @@ function Notify(props) {
             }).start();
         }, (props.duration || 5000));
         return (
-            <Animated.View style={{ opacity: opacity, zIndex: 1000, }}>
+            <Animated.View style={{ opacity: opacity, zIndex: 1000, position: "absolute", top: 0, width: "100%", }}>
                 <Card style={styles.Input___shadow}>
                     <CardItem style={styles.cardItem}>
                         <View>
                             <Icon style={{ color: colors.black, }} name='ios-notifications' />
                         </View>
-                        <View>
+                        <View style={{ paddingHorizontal: 15, }}>
                             <Text style={{ color: colors.black, fontFamily: fonts.nunitoBold, fontSize: 18, }}>{props.title}</Text>
-                            <Text style={{ color: colors.gray, fontFamily: fonts.nunitoMedium, }}>{props.message}</Text>
+                            <Text style={{ color: colors.gray, fontFamily: fonts.nunitoRegular, }}>{props.message}</Text>
                         </View>
                     </CardItem>
                 </Card>

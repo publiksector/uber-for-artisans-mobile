@@ -55,7 +55,7 @@ export default function (props) {
                             <View style={styles.categoryContainer}>
                                 <Text style={styles.categoryTxt}>Categories</Text>
                                 <View>
-                                    <CategoryList />
+                                    <CategoryList explore={props.explore} />
                                 </View>
                             </View>
 

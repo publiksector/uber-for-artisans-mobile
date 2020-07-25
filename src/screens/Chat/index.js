@@ -132,7 +132,7 @@ export class Chat extends React.Component {
                                 <View style={styles.txtContainer}>
                                     <Text style={styles.text2}>John Doe</Text>
                                     <Rating
-                                        onFinishRating={this.ratingCompleted}
+                                        // onFinishRating={this.ratingCompleted}
                                         style={{ paddingVertical: 5, }}
                                         imageSize={17}
                                         ratingCount={5}
@@ -427,7 +427,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 2,
         marginLeft: 2,
-        elevation: 8,
+        elevation: 3,
         justifyContent: 'center',
         padding: 12,
     },

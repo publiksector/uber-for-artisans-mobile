@@ -72,7 +72,7 @@ export class Home extends React.Component {
                 {/* <View style={styles.tabNavigation}>
 
                 </View> */}
-                <MapView />
+                {/* <MapView /> */}
                 {!hideTab && <Card style={[styles.Input___shadow]}>
                     <View style={styles.tabContent}>
                         <ExploreIcon active />

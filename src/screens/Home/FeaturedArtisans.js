@@ -32,7 +32,7 @@ export default function () {
                         <View style={styles.txtContainer}>
                             <Text style={styles.text2}>John Doe</Text>
                             <Rating
-                                onFinishRating={this.ratingCompleted}
+                                // onFinishRating={this.ratingCompleted}
                                 style={{ paddingVertical: 5, }}
                                 imageSize={15}
                                 ratingCount={5}
@@ -65,7 +65,7 @@ export default function () {
                         <View style={styles.txtContainer}>
                             <Text style={styles.text2}>John Doe</Text>
                             <Rating
-                                onFinishRating={this.ratingCompleted}
+                                // onFinishRating={this.ratingCompleted}
                                 style={{ paddingVertical: 5, }}
                                 imageSize={15}
                                 ratingCount={5}
@@ -98,7 +98,7 @@ export default function () {
                         <View style={styles.txtContainer}>
                             <Text style={styles.text2}>John Doe</Text>
                             <Rating
-                                onFinishRating={this.ratingCompleted}
+                                // onFinishRating={this.ratingCompleted}
                                 style={{ paddingVertical: 5, }}
                                 imageSize={15}
                                 ratingCount={5}
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.2,
         shadowRadius: 8,
-        elevation: 8,
+        // elevation: 8,
         zIndex: 1000,
         alignSelf: 'center',
         width: 180,

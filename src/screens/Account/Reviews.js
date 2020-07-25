@@ -24,7 +24,7 @@ export default function (props) {
                     <View style={styles.reviewContentFooter}>
                         <Text style={styles.reviewDate}>{review.date}</Text>
                         <Rating
-                            onFinishRating={this.ratingCompleted}
+                            // onFinishRating={this.ratingCompleted}
                             // style={{ margin: 5, }}
                             imageSize={12}
                             ratingCount={5}
